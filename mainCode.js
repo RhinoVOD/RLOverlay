@@ -126,13 +126,26 @@ const WsSubscribers = {
 $(() => {
     WsSubscribers.init(49322, true);
     WsSubscribers.subscribe("game", "update_state", (d) => {
-        $(".scorebug .team.left .name").text(d['game']['teams'][0]['name']);    //Left name
-        $(".scorebug .team.left .score").text(d['game']['teams'][0]['score']);  //Left score
-        $(".scorebug .team.right .name").text(d['game']['teams'][1]['name']);   //Right name
-        $(".scorebug .team.right .score").text(d['game']['teams'][1]['score']); //Right score
+        let gameTimer = d['game']['time_seconds'];
+        let minutes = Math.floor(gameTimer / 60);
+        let seconds = gameTimer % 60;
+        if (seconds < 10) { seconds = '0' + seconds;}
 
-        $(".scorebug .info .target").text(d['game']['target']); //Current specced player
+        $(".teams .timer").text(minutes + ":" + seconds);         //Timer
+        $(".teams .left-name").text(d['game']['teams'][0]['name']);     //Left name
+        $(".teams .left-score").text(d['game']['teams'][0]['score']);   //Left score
+        $(".teams .right-name").text(d['game']['teams'][1]['name']);    //Right name
+        $(".teams .right-score").text(d['game']['teams'][1]['score']);  //Right score
 
+        //Current specced player
+        let target = d['game']['target'].slice(0, -2);
+        if (target === '') {
+            $('.target-info').hide();
+        }
+        else {
+            $(".target-info .t-name").text(d['game']['target'].slice(0, -2));
+            $('.target-info').show();
+        }
 
         const blue = Object.values(d.players).filter(p => p.team === 0 && p.id.at(-1) !== 4);
         const orange = Object.values(d.players).filter(p => p.team === 1 && p.id.at(-1) !== 8);
@@ -140,8 +153,8 @@ $(() => {
         //Blue team players
         blue.forEach(player => {
             let playerNum = player.id.at(-1);
-            let playerName = ".players .blue" + playerNum.toString() + " .name";
-            let playerBoost = ".players .blue" + playerNum.toString() + " .boost";
+            let playerName = ".bluePlayers .blue" + playerNum.toString() + " .b-name";
+            let playerBoost = ".bluePlayers .blue" + playerNum.toString() + " .b-boost";
 
             $(playerName).text(player.name);
             $(playerBoost).text(player.boost);
@@ -150,8 +163,8 @@ $(() => {
         //Orange team players
         orange.forEach(player => {
             let playerNum = player.id.at(-1);
-            let playerName = ".players .orange" + playerNum.toString() + " .name";
-            let playerBoost = ".players .orange" + playerNum.toString() + " .boost";
+            let playerName = ".orangePlayers .orange" + playerNum.toString() + " .o-name";
+            let playerBoost = ".orangePlayers .orange" + playerNum.toString() + " .o-boost";
 
             $(playerName).text(player.name);
             $(playerBoost).text(player.boost);
