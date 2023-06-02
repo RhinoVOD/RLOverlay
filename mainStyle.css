@@ -16,13 +16,13 @@
 }
 .left-name {
     width: 20%;
+    padding-right: 10px;
     text-align: right;
-    background-color: #1873FF;
 }
 .right-name {
     width: 20%;
+    padding-left: 10px;
     text-align: left;
-    background-color: #C26418;
 }
 
 .bluePlayers, .orangePlayers {

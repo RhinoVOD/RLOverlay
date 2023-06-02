@@ -22,7 +22,15 @@ Download the SOS-WS-Relay repository and place the folder in an easily accessibl
 Direct a command prompt window to the folder and run `npm install` then `node ws-relay.js`.
 Information about the launch options for SOS-WS-Relay can be found in the project's README file.
 <br>
-Now launch Rocket League and BakkesMod. Then launch SOS-WS-Relay through a command prompt. Lastly, open main.html and spectate a custom game with bots in Rocket League. If everything is working properly, live information from the game will show up in the main.html window.
+Now launch Rocket League and BakkesMod. Then launch SOS-WS-Relay through a command prompt.
+Lastly, open main.html and spectate a custom game with bots in Rocket League.
+If everything is working properly, live information from the game will show up in the main.html window.
+
+### Additional Info
+
+* You must be a spectator for SOS to get game data. Game information is not relayed while in a player slot.
+* The project is currently meant for handling 3v3 matches. 4v4 is possible with modifications to the HTML and JavaScript.
+* Placing the overlay on a game feed can be done with a program like [OBS](https://obsproject.com) or [vMix](https://www.vmix.com)
 
 ## Built With
 
@@ -30,7 +38,3 @@ Now launch Rocket League and BakkesMod. Then launch SOS-WS-Relay through a comma
 * [SOS Overlay System](https://gitlab.com/bakkesplugins/sos/sos-plugin) - Information on events and data pulled from the game
 * [WebStorm](https://www.jetbrains.com/webstorm/) - JavaScript IDE
 * [GitHub Desktop](https://desktop.github.com/) - GitHub app
-
-## Authors
-
-* **Ryan Marsh** - *Project Creator* - [RhinoVOD](https://github.com/RhinoVOD)

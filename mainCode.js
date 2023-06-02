@@ -121,30 +121,53 @@ const WsSubscribers = {
 
 ///
 
+let gameData;
 
+function teamInfoFill() {
+    if (gameData !== undefined) {
+        //Team colors
+        document.getElementsByClassName("left-name")[0].bgColor = gameData['game']['teams'][0]['color_primary'];
+        document.getElementsByClassName("right-name")[0].bgColor = gameData['game']['teams'][1]['color_primary'];
+
+        //Team names
+        $(".teams .left-name").text(gameData['game']['teams'][0]['name']);
+        $(".teams .right-name").text(gameData['game']['teams'][1]['name']);
+    }
+}
 
 $(() => {
     WsSubscribers.init(49322, true);
-    WsSubscribers.subscribe("game", "update_state", (d) => {
-        let gameTimer = d['game']['time_seconds'];
-        let minutes = Math.floor(gameTimer / 60);
-        let seconds = gameTimer % 60;
-        if (seconds < 10) { seconds = '0' + seconds;}
 
-        $(".teams .timer").text(minutes + ":" + seconds);         //Timer
-        $(".teams .left-name").text(d['game']['teams'][0]['name']);     //Left name
-        $(".teams .left-score").text(d['game']['teams'][0]['score']);   //Left score
-        $(".teams .right-name").text(d['game']['teams'][1]['name']);    //Right name
-        $(".teams .right-score").text(d['game']['teams'][1]['score']);  //Right score
+    WsSubscribers.subscribe("wsRelay", "info", (d) => {
+        setTimeout(() => { console.log("UI UPDATE: WS Connect"); teamInfoFill(); }, 500);
+    });
+
+    WsSubscribers.subscribe("game", "match_created", (d) => {
+        setTimeout(() => { console.log("UI UPDATE: Match Created"); teamInfoFill()}, 500);
+    });
+
+    WsSubscribers.subscribe("game", "update_state", (d) => {
+        gameData = d;
+
+        let timeGame = d['game']['time_seconds'];
+        let timeMin = Math.floor(timeGame / 60);
+        let timeSec = timeGame % 60;
+        if (timeSec < 10) { timeSec = '0' + timeSec;}
+        if (d['game']['isOT']) {
+            timeMin += '+';
+        }
+
+        $(".teams .timer").text(timeMin + ":" + timeSec);               //Timer
+        $(".teams .left-score").text(d['game']['teams'][0]['score']);   //Left team score
+        $(".teams .right-score").text(d['game']['teams'][1]['score']);  //Right team score
 
         //Current specced player
-        let target = d['game']['target'].slice(0, -2);
-        if (target === '') {
-            $('.target-info').hide();
-        }
-        else {
+        if (d['game']['hasTarget']) {
             $(".target-info .t-name").text(d['game']['target'].slice(0, -2));
             $('.target-info').show();
+        }
+        else {
+            $('.target-info').hide();
         }
 
         const blue = Object.values(d.players).filter(p => p.team === 0 && p.id.at(-1) !== 4);
