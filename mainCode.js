@@ -121,18 +121,27 @@ const WsSubscribers = {
 
 ///
 
-let gameData;
+let gameData; // Latest game info from game:update_state event
 
 function teamInfoFill() {
     if (gameData !== undefined) {
-        //Team colors
+        // Colors
         document.getElementsByClassName("left-name")[0].bgColor = gameData['game']['teams'][0]['color_primary'];
         document.getElementsByClassName("right-name")[0].bgColor = gameData['game']['teams'][1]['color_primary'];
 
-        //Team names
+        // Names
         $(".teams .left-name").text(gameData['game']['teams'][0]['name']);
         $(".teams .right-name").text(gameData['game']['teams'][1]['name']);
     }
+}
+
+function playerInfoFill(team, player) {
+    let playerNum = player.id.at(-1);
+    let playerClassName = "." + team + "Players ." + team + playerNum + " ." + team + "Name";
+    let playerClassBoost = "." + team + "Players ." + team + playerNum + " ." + team + "Boost";
+
+    $(playerClassName).text(player.name);
+    $(playerClassBoost).text(player.boost);
 }
 
 $(() => {
@@ -154,14 +163,13 @@ $(() => {
         let timeSec = timeGame % 60;
         if (timeSec < 10) { timeSec = '0' + timeSec;}
         if (d['game']['isOT']) {
-            timeMin += '+';
+            timeMin = '+' + timeMin;
         }
-
         $(".teams .timer").text(timeMin + ":" + timeSec);               //Timer
         $(".teams .left-score").text(d['game']['teams'][0]['score']);   //Left team score
         $(".teams .right-score").text(d['game']['teams'][1]['score']);  //Right team score
 
-        //Current specced player
+        // Current specced player
         if (d['game']['hasTarget']) {
             $(".target-info .t-name").text(d['game']['target'].slice(0, -2));
             $('.target-info').show();
@@ -170,27 +178,15 @@ $(() => {
             $('.target-info').hide();
         }
 
+        // Update all player info
         const blue = Object.values(d.players).filter(p => p.team === 0 && p.id.at(-1) !== 4);
         const orange = Object.values(d.players).filter(p => p.team === 1 && p.id.at(-1) !== 8);
-
-        //Blue team players
         blue.forEach(player => {
-            let playerNum = player.id.at(-1);
-            let playerName = ".bluePlayers .blue" + playerNum.toString() + " .b-name";
-            let playerBoost = ".bluePlayers .blue" + playerNum.toString() + " .b-boost";
-
-            $(playerName).text(player.name);
-            $(playerBoost).text(player.boost);
+            playerInfoFill("blue", player);
+            console.log(player);
         });
-
-        //Orange team players
         orange.forEach(player => {
-            let playerNum = player.id.at(-1);
-            let playerName = ".orangePlayers .orange" + playerNum.toString() + " .o-name";
-            let playerBoost = ".orangePlayers .orange" + playerNum.toString() + " .o-boost";
-
-            $(playerName).text(player.name);
-            $(playerBoost).text(player.boost);
+            playerInfoFill("orange", player);
         });
     });
 });

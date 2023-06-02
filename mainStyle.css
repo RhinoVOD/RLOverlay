@@ -3,7 +3,6 @@
 .team-info {
     width: 50%;
     margin: 1% auto auto;
-    color: black;
     text-align: center;
     font-size: 30px;
     font-family: Arial, Helvetica, sans-serif;
@@ -30,7 +29,6 @@
     width: 10%;
     top: 200px;
     border-spacing: 10px;
-    color: black;
     font-size: 25px;
     font-family: Arial, Helvetica, sans-serif;
     background-color: white;
@@ -41,10 +39,10 @@
 .orangePlayers {
     right: 1%;
 }
-.b-name, .o-boost {
+.blueName, .orangeBoost {
     text-align: left;
 }
-.b-boost, .o-name {
+.blueBoost, .orangeName {
     text-align: right;
 }
 
@@ -54,7 +52,6 @@
     width: auto;
     padding: 0 10px;
     top: 600px;
-    color: black;
     font-size: 25px;
     font-family: Arial, Helvetica, sans-serif;
     background-color: white;
