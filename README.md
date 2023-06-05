@@ -18,13 +18,18 @@ These instructions will get you a copy of the project up and running on your loc
 ### Installing & Running
 
 Download and install BakkesMod and Node.js. The current LTS build of Node.js is preferred.
-Download the SOS-WS-Relay repository and place the folder in an easily accessible location.
-Direct a command prompt window to the folder and run `npm install` then `node ws-relay.js`.
+Download the SOS-WS-Relay repository and this repository. Place both folders in an easily accessible location.
+Direct a command prompt window to the SOS-WS-Relay folder and run `npm install` then `node ws-relay.js`.
 Information about the launch options for SOS-WS-Relay can be found in the project's README file.
 <br>
-Now launch Rocket League and BakkesMod. Then launch SOS-WS-Relay through a command prompt.
-Lastly, open main.html and spectate a custom game with bots in Rocket League.
+Now launch Rocket League and BakkesMod. Lastly, open main.html from this repository and spectate a custom 3v3 game with bots in Rocket League.
 If everything is working properly, live information from the game will show up in the main.html window.
+
+#### Video Tutorial
+
+[![Test](https://i.imgur.com/sRyCJJe.png)](https://www.youtube.com/watch?v=gR7HUNPJfXs)
+Click the image above for additional installation help.
+
 
 ### Additional Info
 
