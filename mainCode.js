@@ -121,7 +121,21 @@ const WsSubscribers = {
 
 ///
 
-let gameData; // Latest game info from game:update_state event
+let gameData;           // Latest game info from game:update_state event
+let boostCircleElem;    // Element for the target boost circle
+let boostCircleCircum;  // Circumference of the target boost circle
+
+document.addEventListener("DOMContentLoaded", function() {
+    boostMeterSetup();
+});
+
+function boostMeterSetup() {
+    boostCircleElem = document.getElementById('boost-ring-circle');
+    boostCircleCircum = boostCircleElem.r.baseVal.value * 2 * Math.PI;
+
+    boostCircleElem.style.strokeDasharray = `${boostCircleCircum} ${boostCircleCircum}`;
+    boostCircleElem.style.strokeDashoffset = `${boostCircleCircum}`;
+}
 
 function teamInfoFill() {
     if (gameData !== undefined) {
@@ -136,12 +150,29 @@ function teamInfoFill() {
 }
 
 function playerInfoFill(team, player) {
-    let playerNum = player.id.at(-1);
-    let playerClassName = "." + team + "Players ." + team + playerNum + " ." + team + "Name";
-    let playerClassBoost = "." + team + "Players ." + team + playerNum + " ." + team + "Boost";
+    const playerNum = player.id.at(-1);
+    const playerClassName = "." + team + "Players ." + team + playerNum + " ." + team + "Name";
+    const playerClassBoost = "." + team + "Players ." + team + playerNum + " ." + team + "Boost";
 
     $(playerClassName).text(player.name);
     $(playerClassBoost).text(player.boost);
+}
+
+function targetInfoFill () {
+    const targetPlayer = Object.values(gameData.players).filter(p => p.id === gameData['game']['target'])[0];
+
+    $(".target-info .t-name").text(targetPlayer.name);
+    $(".target-info .t-score").text(targetPlayer.score);
+    $(".target-info .t-goals").text(targetPlayer.goals);
+    $(".target-info .t-shots").text(targetPlayer.shots);
+    $(".target-info .t-assists").text(targetPlayer.assists);
+    $(".target-info .t-saves").text(targetPlayer.saves);
+
+    $(".boost").text(targetPlayer.boost);
+
+    const offset = boostCircleCircum - targetPlayer.boost / 100 * boostCircleCircum;
+    boostCircleElem.style.strokeDashoffset = offset;
+    boostCircleElem.style.stroke = "#" + gameData.game.teams[targetPlayer.team].color_primary;
 }
 
 $(() => {
@@ -171,11 +202,16 @@ $(() => {
 
         // Current specced player
         if (d['game']['hasTarget']) {
-            $(".target-info .t-name").text(d['game']['target'].slice(0, -2));
+            targetInfoFill();
+
             $('.target-info').show();
+            $('.boost').show();
+            $('.boost-ring').show();
         }
         else {
             $('.target-info').hide();
+            $('.boost').hide();
+            $('.boost-ring').hide();
         }
 
         // Update all player info
