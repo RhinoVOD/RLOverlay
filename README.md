@@ -41,5 +41,6 @@ Click the image above for additional installation help.
 
 * [RL Broadcast Programming discord](https://discord.gg/za2wqSf) - Community and resources for creating Rocket League overlays
 * [SOS Overlay System](https://gitlab.com/bakkesplugins/sos/sos-plugin) - Information on events and data pulled from the game
+* [SOS Introduction Tutorial Code](https://gitlab.com/bakkesplugins/sos/sos-ws-relay/-/snippets/1997150) - Initial code to subscribe to SOS-WS-Relay events
 * [WebStorm](https://www.jetbrains.com/webstorm/) - JavaScript IDE
 * [GitHub Desktop](https://desktop.github.com/) - GitHub app
