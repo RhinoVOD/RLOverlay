@@ -183,7 +183,6 @@ $(() => {
         const orange = Object.values(d.players).filter(p => p.team === 1 && p.id.at(-1) !== 8);
         blue.forEach(player => {
             playerInfoFill("blue", player);
-            console.log(player);
         });
         orange.forEach(player => {
             playerInfoFill("orange", player);
