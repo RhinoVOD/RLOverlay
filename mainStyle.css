@@ -1,12 +1,20 @@
 /* Designed for a 1920x1080 window/overlay */
 
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
 .team-info {
     width: 50%;
     margin: 1% auto auto;
     text-align: center;
     font-size: 30px;
-    font-family: Arial, Helvetica, sans-serif;
     background-color: gray;
+    border-collapse: collapse;
+}
+.team-info td {
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
 .left-score, .right-score {
     width: 15%;
@@ -26,12 +34,12 @@
 
 .bluePlayers, .orangePlayers {
     position: absolute;
-    width: 10%;
-    top: 200px;
-    border-spacing: 10px;
+    width: 15%;
+    top: 170px;
     font-size: 25px;
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: white;
+    border-collapse: separate;
+    border-spacing: 0 15px;
+    color: white;
 }
 .bluePlayers {
     left: 1%;
@@ -39,6 +47,14 @@
 .orangePlayers {
     right: 1%;
 }
+.bluePlayers tr, .orangePlayers tr {
+    background-color: black;
+    opacity: 0.95;
+}
+.bluePlayers td, .orangePlayers td {
+    padding: 10px 12px;
+}
+
 .blueName, .orangeBoost {
     text-align: left;
 }
@@ -50,12 +66,13 @@
     display: none;
     position: absolute;
     width: 15%;
-    padding: 0 10px;
+    padding: 10px 20px;
     top: 600px;
+    left: 1%;
     text-align: right;
     font-size: 25px;
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: white;
+    color: white;
+    background-color: black;
 }
 .t-name {
     text-align: center;
@@ -73,7 +90,6 @@
     top: 600px;
     text-align: center;
     font-size: 20px;
-    font-family: Arial, Helvetica, sans-serif;
     background-color: white;
 }
 
