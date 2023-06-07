@@ -161,14 +161,16 @@ function playerInfoFill(team, player) {
 function targetInfoFill () {
     const targetPlayer = Object.values(gameData.players).filter(p => p.id === gameData['game']['target'])[0];
 
-    $(".target-info .t-name").text(targetPlayer.name);
+    let tName = $(".target-info .t-name");
+    tName.text(targetPlayer.name);
+    tName.css("background-color", "#" + gameData.game.teams[targetPlayer.team].color_primary);
     $(".target-info .t-score").text(targetPlayer.score);
     $(".target-info .t-goals").text(targetPlayer.goals);
     $(".target-info .t-shots").text(targetPlayer.shots);
     $(".target-info .t-assists").text(targetPlayer.assists);
     $(".target-info .t-saves").text(targetPlayer.saves);
 
-    $(".boost").text(targetPlayer.boost);
+    $(".boost-number").text(targetPlayer.boost);
 
     const offset = boostCircleCircum - targetPlayer.boost / 100 * boostCircleCircum;
     boostCircleElem.style.strokeDashoffset = offset;
@@ -205,13 +207,11 @@ $(() => {
             targetInfoFill();
 
             $('.target-info').show();
-            $('.boost').show();
-            $('.boost-ring').show();
+            $('.target-boost').show();
         }
         else {
             $('.target-info').hide();
-            $('.boost').hide();
-            $('.boost-ring').hide();
+            $('.target-boost').hide();
         }
 
         // Update all player info

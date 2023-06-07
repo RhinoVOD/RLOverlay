@@ -9,7 +9,7 @@ body {
     margin: 1% auto auto;
     text-align: center;
     font-size: 30px;
-    background-color: gray;
+    background-color: lightgray;
     border-collapse: collapse;
 }
 .team-info td {
@@ -71,40 +71,50 @@ body {
     left: 1%;
     text-align: right;
     font-size: 25px;
+    opacity: 0.95;
     color: white;
     background-color: black;
 }
 .t-name {
     text-align: center;
     font-size: 30px;
+    background-color: black;
 }
 .t-info {
     text-align: left;
 }
 
-.boost {
-    display: none;
-    position: absolute;
-    width: 10%;
-    right: 1%;
-    top: 600px;
-    text-align: center;
-    font-size: 20px;
-    background-color: white;
-}
 
-circle {
+.target-boost {
+    display: none;
+}
+.boost-number {
+    position: absolute;
+    width: 4%;
+    right: 80px;
+    top: 800px;
+    text-align: center;
+    font-size: 30px;
+    color: white;
 }
 .boost-ring {
-    display: none;
     position: absolute;
-    top: 650px;
+    top: 750px;
     right: 1%;
-    width: 120px;
-    height: 120px;
+    width: 200px;
+    height: 200px;
 }
 #boost-ring-circle {
     transition: 0.1s stroke-dashoffset;
     transform: rotate(90deg);
     transform-origin: 50% 50%;
+}
+#boost-ring-bg-svg {
+    z-index: -1;
+}
+#boost-ring-bg {
+    top: 750px;
+    right: 1%;
+    background-color: black;
+    border-radius: 50%;
 }

@@ -70,14 +70,24 @@
             </tr>
         </table>
 
-        <p class="boost"></p>
-        <svg class="boost-ring">
-            <circle id="boost-ring-circle"
-                    stroke-width="4"
-                    fill="transparent"
-                    r="52"
-                    cx="60"
-                    cy="60"/>
-        </svg>
+        <div class="target-boost">
+            <p class="boost-number"></p>
+            <svg class="boost-ring">
+                <circle id="boost-ring-circle"
+                        stroke-width="20"
+                        fill="transparent"
+                        r="60"
+                        cx="100"
+                        cy="100"/>
+            </svg>
+            <svg class="boost-ring"
+                 id="boost-ring-bg-svg">
+                <circle id="boost-ring-bg"
+                        fill="solid"
+                        r="80"
+                        cx="100"
+                        cy="100"/>
+            </svg>
+        </div>
     </body>
 </html>
