@@ -10,33 +10,37 @@ body {
     font-size: 30px;
     background-color: lightgray;
     border-collapse: collapse;
+    border-radius: 10px;
 }
 .team-info td {
     padding-top: 3px;
     padding-bottom: 3px;
 }
 .timer {
-    width: 10%;
+    width: 130px;
+    /*background-color: lightgray;*/
 }
 .left-score, .right-score {
-    width: 10%;
+    width: 100px;
     color: white;
     background-color: black;
 }
-.left-name {
-    width: 30%;
+.left-name, .right-name {
+    width: 320px;
     padding: 5px 10px 5px 10px;
+}
+.left-name {
     text-align: right;
+    border-radius: 10px 0 0 10px;
 }
 .right-name {
-    width: 30%;
-    padding: 5px 10px 5px 10px;
     text-align: left;
+    border-radius: 0 10px 10px 0;
 }
 
 .bluePlayers, .orangePlayers {
     position: absolute;
-    width: 15%;
+    width: 290px;
     top: 170px;
     font-size: 25px;
     border-collapse: separate;
@@ -67,7 +71,7 @@ body {
 .target-info {
     display: none;
     position: absolute;
-    width: 15%;
+    width: 290px;
     padding: 10px 20px;
     top: 600px;
     left: 1%;
