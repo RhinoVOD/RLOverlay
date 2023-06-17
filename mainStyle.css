@@ -5,7 +5,6 @@ body {
 }
 
 .team-info {
-    width: 50%;
     margin: 1% auto auto;
     text-align: center;
     font-size: 30px;
@@ -16,19 +15,22 @@ body {
     padding-top: 3px;
     padding-bottom: 3px;
 }
+.timer {
+    width: 10%;
+}
 .left-score, .right-score {
-    width: 15%;
+    width: 10%;
     color: white;
     background-color: black;
 }
 .left-name {
-    width: 20%;
-    padding-right: 10px;
+    width: 30%;
+    padding: 5px 10px 5px 10px;
     text-align: right;
 }
 .right-name {
-    width: 20%;
-    padding-left: 10px;
+    width: 30%;
+    padding: 5px 10px 5px 10px;
     text-align: left;
 }
 
