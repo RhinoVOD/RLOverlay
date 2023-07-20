@@ -181,31 +181,58 @@ $(() => {
     WsSubscribers.init(49322, true);
 
     WsSubscribers.subscribe("wsRelay", "info", (d) => {
-        setTimeout(() => { console.log("UI UPDATE: WS Connect"); teamInfoFill(); }, 500);
+        setTimeout(() => {
+            console.log("UI UPDATE: WS Connect");
+            teamInfoFill();
+            }, 500);
     });
 
     WsSubscribers.subscribe("game", "match_created", (d) => {
-        setTimeout(() => { console.log("UI UPDATE: Match Created"); teamInfoFill()}, 500);
+        setTimeout(() => {
+            console.log("UI UPDATE: Match Created");
+            $('body').show();
+            teamInfoFill();
+            }, 500);
     });
+
+    WsSubscribers.subscribe("game", "replay_start", (d) => {
+        $(".teams .timer").text("REPLAY");
+        $('.target-info').hide();
+        $('.target-boost').hide();
+    });
+
+    WsSubscribers.subscribe("game", "match_destroyed", (d) => {
+        $('body').show();
+        $('.target-info').hide();
+        $('.target-boost').hide();
+    });
+
 
     WsSubscribers.subscribe("game", "update_state", (d) => {
         gameData = d;
 
-        let timeGame = d['game']['time_seconds'];
-        let timeMin = Math.floor(timeGame / 60);
-        let timeSec = timeGame % 60;
-        if (timeSec < 10) { timeSec = '0' + timeSec;}
-        if (d['game']['isOT']) {
-            timeMin = '+' + timeMin;
+        // Game ended - hide overlay
+        if (d['game']['hasWinner']) {
+            $('body').hide();
         }
-        $(".teams .timer").text(timeMin + ":" + timeSec);               //Timer
-        $(".teams .left-score").text(d['game']['teams'][0]['score']);   //Left team score
-        $(".teams .right-score").text(d['game']['teams'][1]['score']);  //Right team score
+
+        // Update timer and team scores when not in a replay
+        if (!d['game']['isReplay']) {
+            let timeGame = d['game']['time_seconds'];
+            let timeMin = Math.floor(timeGame / 60);
+            let timeSec = timeGame % 60;
+            if (timeSec < 10)
+                timeSec = '0' + timeSec;
+            if (d['game']['isOT'])
+                timeMin = '+' + timeMin;
+            $(".teams .timer").text(timeMin + ":" + timeSec);
+            $(".teams .left-score").text(d['game']['teams'][0]['score']);
+            $(".teams .right-score").text(d['game']['teams'][1]['score']);
+        }
 
         // Current specced player
         if (d['game']['hasTarget']) {
             targetInfoFill();
-
             $('.target-info').show();
             $('.target-boost').show();
         }
