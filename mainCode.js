@@ -4,6 +4,7 @@ let boostCircleCircum;  // Circumference of the target boost circle
 
 document.addEventListener("DOMContentLoaded", function() {
     boostMeterSetup();
+    wsInit();
 });
 
 function boostMeterSetup() {
@@ -54,7 +55,7 @@ function targetInfoFill () {
     boostCircleElem.style.stroke = "#" + gameData.game.teams[targetPlayer.team].color_primary;
 }
 
-$(() => {
+function wsInit () {
     WsSubscribers.init(49322, true);
 
     WsSubscribers.subscribe("wsRelay", "info", (d) => {
@@ -128,4 +129,4 @@ $(() => {
             playerInfoFill("orange", player);
         });
     });
-});
+}
